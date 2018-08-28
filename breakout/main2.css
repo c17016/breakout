@@ -1,0 +1,12 @@
+body {
+    background-color: gray;
+}
+
+canvas#main {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 640px;
+    height: 480px;
+    background-color: black;
+}
