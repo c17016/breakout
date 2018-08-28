@@ -106,6 +106,10 @@ class Ball {
             this.x -= this.x - this.radius;
             this.vx = -this.vx;
         }
+        else if (WINDOW_HEIGHT < this.y) {
+            alert("GAME OVER\nまた挑戦してね!");
+            document.location.reload();
+        }
     }
 
     start(speed) {

@@ -12,7 +12,10 @@ const ball = new Ball(400, 400, 10, 'red');
 const paddle = new Paddle(400, 550, 80, 10, 'deepskyblue');
 const blocks = [];
 
-for (var i = 0; i < 5; i++) {
+var  score = 0;
+
+// ブロックの並び
+for (var i = 0; i < 7; i++) {
     for (var j = 0; j < 9; j++) {
         blocks.push(new Block(80 + (j * 80),60 + (i * 50),BLOCK_WIDTH,BLOCK_HEIGHT,"lime"));
     }
@@ -23,6 +26,7 @@ for (var i = 0; i < 5; i++) {
 window.setInterval(game_tick, SPF);
 
 function game_tick() {
+    //console.log(blocks.score);
     // 入力状況に応じた呼び出し
     if (input.space) {
         ball.start(5);
@@ -33,7 +37,6 @@ function game_tick() {
     if (input.right) {
         paddle.move(PADDLE_SPEED);
     }
-
 
     // ボールの移動
     ball.move();
@@ -48,21 +51,26 @@ function game_tick() {
     paddle.draw(ctx);
     ball.draw(ctx);
     blocks.forEach((block) => block.draw(ctx));
+
+    // スコア描画
+    ctx.fillStyle = 'lime';
+    ctx.font = '20px "Arial Black"';
+    ctx.fillText('score : ' + /*blocks.*/score, 10, 580);
 }
 
 function blocks_collide() {
     for (var i = 0; i < blocks.length; i++) {
         if (blocks[i] && blocks[i].collide(ball)) {
             blocks.splice(i, 1);
+
+            // スコアの加算
+            this.score++;
         }
     }
 
-    // // 動作確認用のサンプルコード
-    // if (blocks[0] && blocks[0].collide(ball)) {
-    //     blocks.splice(0, 1);
-    // }
-
-    // if (blocks[i] && blocks[j].collide(ball)) {
-    //     blocks.splice(0, 1);
-    // }
+    // クリア判定
+    if (blocks.length <= 0) {
+        alert("GAME CLEAR\n＊あなたのスコア＊：" + score + " 点");
+        document.location.reload();
+    }
 }
