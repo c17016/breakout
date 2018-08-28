@@ -8,11 +8,17 @@ const BLOCK_WIDTH = 50;
 const BLOCK_HEIGHT = 20;
 
 const input = new Input();
-const ball = new Ball(400, 300, 10, 'red');
+const ball = new Ball(400, 400, 10, 'red');
 const paddle = new Paddle(400, 550, 80, 10, 'deepskyblue');
 const blocks = [];
 
-blocks.push(new Block(400, 50, BLOCK_WIDTH, BLOCK_HEIGHT, "lime"));
+for (var i = 0; i < 5; i++) {
+    for (var j = 0; j < 9; j++) {
+        blocks.push(new Block(80 + (j * 80),60 + (i * 50),BLOCK_WIDTH,BLOCK_HEIGHT,"lime"));
+    }
+}
+
+//blocks.push(new Block(400, 50, BLOCK_WIDTH, BLOCK_HEIGHT, "lime"));
 
 window.setInterval(game_tick, SPF);
 
@@ -45,8 +51,18 @@ function game_tick() {
 }
 
 function blocks_collide() {
-    // 動作確認用のサンプルコード
-    if (blocks[0] && blocks[0].collide(ball)) {
-        blocks.splice(0, 1);
+    for (var i = 0; i < blocks.length; i++) {
+        if (blocks[i] && blocks[i].collide(ball)) {
+            blocks.splice(i, 1);
+        }
     }
+
+    // // 動作確認用のサンプルコード
+    // if (blocks[0] && blocks[0].collide(ball)) {
+    //     blocks.splice(0, 1);
+    // }
+
+    // if (blocks[i] && blocks[j].collide(ball)) {
+    //     blocks.splice(0, 1);
+    // }
 }
